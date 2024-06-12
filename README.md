@@ -1,4 +1,5 @@
 # Álláskereső alkalmazás
+Ez egy állaskereső alkalmazás, amelyben klienseket és állásokat tudunk felvinni egy inmemory adatbázisba és keresni tudunk a már felvitt állások között.
 ## Futtatás:
 - Futtatáshoz egy java IDE szükséges, illetve telepített java 11.
 ## Bekonfigurálás:
