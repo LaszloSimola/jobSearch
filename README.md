@@ -1,6 +1,6 @@
 # Álláskereső alkalmazás
 ## Futtatás:
-- Futtatáshoz egy java IDE szükséges, illetve java 11.
+- Futtatáshoz egy java IDE szükséges, illetve telepített java 11.
 ## Bekonfigurálás:
 - Klónozás után megnyitjuk a repositoryt majd a "mvn clean install" parancsot kiadjuk a project gyökerében.
 - Ezután, pedig a jobSearchApplication.java nevű file main függvényét futtatjuk.
