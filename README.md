@@ -11,15 +11,17 @@ Ez egy állaskereső alkalmazás, amelyben klienseket és állásokat tudunk fel
 - Az alkalmazás kezdőoldala egy kliens felvivő felülelet, amelyen:
   - Fel tudunk vinni adatokat (email és név)
   - Ellenőrzi az alkalmazás az email cím helyes formátumát, illetve az egyezést a már felvitt email címekkel.
+  - A beviteli mezők alatt található az eddig összes felvitt kliens.
     
 - A következő oldal egy állás felvételét szolgáló oldal.
   - Fel tudunk vinni két mező segítségével állásokat.
   - Egy név és földrajzi hely alapján.
+  -  A beviteli mezők alatt található az eddig összes felvitt pozíció.
     
 - A harmadik oldal egy állás keresésre használandó oldal.
   - Itt két mező alapján tudunk keresni.
-  - Az első mezőben a név alapján. Itt a részleges tartalmazás is egyezést eredményez.
-  - A második mező viszont, csak teljes egyezés alapján mutat eredményt, ez a mező nem kötelező. 
+  - Az első mezőben a név alapján. Itt a részleges tartalmazás is egyezést eredményez, ez a mező nem kötelező.
+  - A második mező, részletes egyezés alapján is mutat eredményt, ez a mező nem kötelező. 
 
 
 ## Fejlesztési lehetőségek:
