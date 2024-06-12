@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Álláskereső alkalmazás</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script>
+        /**
+         * Beküldi az űrlapot, amely tartalmazza az állás megnevezését és munkavégzés helyét.
+         * Az adatokat elküldi a /position végpontra POST kéréssel.
+         * Ha a kérés sikeres, akkor frissíti az oldalt.
+         */
+        function submitForm() {
+            var title = document.getElementById('titleField').value;
+            var worklocation = document.getElementById('locationField').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/position', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                title: title,
+                location: worklocation
+            }));
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert("Sikeresen hozzáadva!");
+                    location.reload();
+                } else {
+                    alert("Hiba történt az állás hozzáadása közben!")
+                }
+            }
+        }
+        /**
+         * Betölti a pozíciókat a /positions végpontról GET kéréssel.
+         * Az adatokat táblázat formában jeleníti meg.
+         */
+        function loadPositions() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '/positions', true);
+            xhr.setRequestHeader('Cache-Control', 'no-cache');
+            xhr.onload = function() {
+                if (xhr.responseText) {
+                    var positions = JSON.parse(xhr.responseText);
+                    var resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = '';
+                    if (positions.length > 0) {
+                        resultDiv.style.display = 'block';
+                        var table = document.createElement('table');
+                        table.classList.add('client-table');
+                        var thead = document.createElement('thead');
+                        thead.innerHTML = '<tr><th>Megnevezés</th><th>Lokáció</th></tr>';
+                        table.appendChild(thead);
+                        var tbody = document.createElement('tbody');
+                        positions.forEach(function(position) {
+                            var tr = document.createElement('tr');
+                            tr.innerHTML = '<td>' + position.title + '</td><td>' + position.location + '</td>';
+                            tbody.appendChild(tr);
+                        });
+                        table.appendChild(tbody);
+                        resultDiv.appendChild(table);
+                    } else {
+                        resultDiv.style.display = 'none';
+                    }
+                }
+            };
+            xhr.send();
+        }
+        /**
+         * Beállítja az aktív navigációs elemet az aktuális URL alapján.
+         */
+        function setActiveNav() {
+            var navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(function(link) {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        /**
+         * Az oldal betöltődésekor meghívja a pozíciókat betöltő és az aktív navigációs elemet beállító függvényeket.
+         */
+        window.onload = function() {
+            loadPositions();
+            setActiveNav();
+        };
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Üdvözöljük az álláskereső alkalmazásban!</h1>
+
+<nav>
+    <ul>
+        <li><a href="/">Kliens regisztráció</a></li>
+        <li><a href="positionCreate.html">Állás létrehozása</a></li>
+        <li><a href="/search.html">Állás keresése</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <form id="positionForm" onsubmit="event.preventDefault(); submitForm();">
+        <div>
+            <label for="titleField">Állás megnevezése (max 50 karakter):</label>
+            <input type="text" id="titleField" name="title" maxlength="50" required>
+        </div>
+        <div>
+            <label for="locationField">Munkavégzés helye (max 50 karakter):</label>
+            <input type="text" id="locationField" name="location" maxlength="50" required>
+        </div>
+        <button type="submit">Állás létrehozása</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Álláskereső alkalmazás</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script>
+        /*
+        * Az űrlapot és tartalmát elküldi a /position/search végponton
+        * Ezek alapján ha egyezés van vagy tartalmazás (kulcsszó vagy helyszín) akkor egy táblázatban visszaadja a találatokat
+        *
+        * */
+        function submitForm() {
+            var keyword = document.getElementById('keywordField').value;
+            var location = document.getElementById('locationField').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '/position/search?keyword=' + encodeURIComponent(keyword) + '&location=' + encodeURIComponent(location), true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var positions = JSON.parse(xhr.responseText);
+                    var resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = '';
+                    if (positions.length > 0) {
+                        resultDiv.style.display = 'block';
+                        var table = document.createElement('table');
+                        table.classList.add('client-table');
+                        var thead = document.createElement('thead');
+                        thead.innerHTML = '<tr><th>Megnevezés</th><th>Lokáció</th></tr>';
+                        table.appendChild(thead);
+                        var tbody = document.createElement('tbody');
+                        positions.forEach(function(position) {
+                            if (position.title.includes(keyword) && position.location.includes(location)) {
+                                var tr = document.createElement('tr');
+                                tr.innerHTML = '<td>' + position.title + '</td><td>' + position.location + '</td>';
+                                tbody.appendChild(tr);
+                            }
+                        });
+                        table.appendChild(tbody);
+                        resultDiv.appendChild(table);
+                    } else {
+                        resultDiv.innerHTML = 'Nincsenek találatok.';
+                        resultDiv.style.display = 'block';
+                    }
+                } else {
+                    alert("Hiba történt az állások keresése közben!");
+                }
+            };
+            xhr.send();
+        }
+        /**
+         * Beállítja az aktív navigációs elemet az aktuális URL alapján.
+         */
+        function setActiveNav() {
+            var navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(function(link) {
+                if (link.href === window.location.href) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        /**
+         * Az oldal betöltődésekor meghívja az aktív navigációs elemet beállító függvényt.
+         */
+        window.onload = function() {
+            setActiveNav();
+        };
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Üdvözöljük az álláskereső alkalmazásban!</h1>
+
+<nav>
+    <ul>
+        <li><a href="/">Kliens regisztráció</a></li>
+        <li><a href="positionCreate.html">Állás létrehozása</a></li>
+        <li><a href="search.html">Állás keresése</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <form id="searchForm" onsubmit="event.preventDefault(); submitForm();">
+        <div>
+            <label for="keywordField">Állás megnevezése:</label>
+            <input type="text" id="keywordField" name="keyword" maxlength="50">
+        </div>
+        <div>
+            <label for="locationField">Munkavégzés helye:</label>
+            <input type="text" id="locationField" name="location" maxlength="50">
+        </div>
+        <button type="submit">Állás keresése</button>
+    </form>
+
+    <div id="result" style="display: none;"></div>
+</div>
+</body>
+</html>
