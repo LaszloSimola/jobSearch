@@ -9,7 +9,7 @@
 ### Az oldalsó menüvel tudunk navigálni egyes oldalak között.
 - Az alkalmazás kezdőoldala egy kliens felvivő felülelet, amelyen:
   - Fel tudunk vinni adatokat (email és név)
-  - Ellenőrzi az alkalmazás az email cím helyes formátumát illetve az egyezést a már felvitt email címekkel.
+  - Ellenőrzi az alkalmazás az email cím helyes formátumát, illetve az egyezést a már felvitt email címekkel.
     
 - A következő oldal egy állás felvételét szolgáló oldal.
   - Fel tudunk vinni két mező segítségével állásokat.
