@@ -19,3 +19,11 @@
   - Itt két mező alapján tudunk keresni.
   - Az első mezőben a név alapján. Itt a részleges tartalmazás is egyezést eredményez.
   - A második mező viszont, csak teljes egyezés alapján mutat eredményt, ez a mező nem kötelező. 
+
+
+## Fejlesztési lehetőségek:
+- Az alkalmazást számos módon lehetne továbbfejleszteni a jövőben, ilyen pélául:
+  - Egy igazi adatbázist mögé rakni, hogy egy újratöltés/megnyitás után ne vesszenek el a felvitt adatok
+  - Több funkció, bejelentkezés, ezzel együtt session kezelés megvalósítása
+  - Az állások elmentése, nem csak név alapján keresés
+  - Egy szebb, felhasználóbarátabb gui elkészítése
