@@ -6,6 +6,7 @@ Ez egy állaskereső alkalmazás, amelyben klienseket és állásokat tudunk fel
 - Klónozás után megnyitjuk a repositoryt majd a "mvn clean install" parancsot kiadjuk a project gyökerében.
 - Ezután, pedig a jobSearchApplication.java nevű file main függvényét futtatjuk.
 - Ha a szerver fut, akkor a localhost:8080 as porton keresztül elérjük az alkalmazást.
+- Kelleni fog még egy webböngésző, ennek címsorába beírjuk a locahost:8080 stringet és már szemünk elé is tárul a felhasználói felület
 ## Használat:
 ### Az oldalsó menüvel tudunk navigálni egyes oldalak között.
 - Az alkalmazás kezdőoldala egy kliens felvivő felülelet, amelyen:
